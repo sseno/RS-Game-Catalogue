@@ -1,0 +1,144 @@
+//
+//  GameDetailResponse.swift
+//  RS-Game-Catalogue
+//
+//  Created by Rohmat Suseno on 05/07/20.
+//  Copyright © 2020 github.com/sseno. All rights reserved.
+//
+
+import Foundation
+
+struct GameDetailResponse: Codable {
+
+    let id: Int?
+    let slug: String?
+    let name: String?
+    let nameOriginal: String?
+    let description: String?
+    let released: String?
+    let tba: Bool?
+    let updated: String?
+    let backgroundImage: String?
+    let website: String?
+    let rating: Double?
+    let ratingTop: Int?
+    let ratings: [GameRatings]?
+    let added: Int?
+    let playtime: Int?
+    let screenshotsCount: Int?
+    let moviesCount: Int?
+    let creatorsCount: Int?
+    let achievementsCount: Int?
+    let parentAchievementsCount: Int?
+    let redditUrl: String?
+    let redditName: String?
+    let redditDescription: String?
+    let redditLogo: String?
+    let redditCount: Int?
+    let twitchCount: Int?
+    let youtubeCount: Int?
+    let reviewsTextCount: Int?
+    let ratingsCount: Int?
+    let suggestionsCount: Int?
+    let alternativeNames: [String]?
+    let metacriticUrl: String?
+    let parentsCount: Int?
+    let additionsCount: Int?
+    let gameSeriesCount: Int?
+    let reviewsCount: Int?
+    let saturatedColor: String?
+    let dominantColor: String?
+    let stores: [GameStores]?
+    let developers: [GameDevelopers]?
+    let genres: [GameGenres]?
+    let tags: [GameTags]?
+    let publishers: [GamePublishers]?
+    let descriptionRaw: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case slug = "slug"
+        case name = "name"
+        case nameOriginal = "name_original"
+        case description = "description"
+        case released = "released"
+        case tba = "tba"
+        case updated = "updated"
+        case backgroundImage = "background_image"
+        case website = "website"
+        case rating = "rating"
+        case ratingTop = "rating_top"
+        case ratings = "ratings"
+        case added = "added"
+        case playtime = "playtime"
+        case screenshotsCount = "screenshots_count"
+        case moviesCount = "movies_count"
+        case creatorsCount = "creators_count"
+        case achievementsCount = "achievements_count"
+        case parentAchievementsCount = "parent_achievements_count"
+        case redditUrl = "reddit_url"
+        case redditName = "reddit_name"
+        case redditDescription = "reddit_description"
+        case redditLogo = "reddit_logo"
+        case redditCount = "reddit_count"
+        case twitchCount = "twitch_count"
+        case youtubeCount = "youtube_count"
+        case reviewsTextCount = "reviews_text_count"
+        case ratingsCount = "ratings_count"
+        case suggestionsCount = "suggestions_count"
+        case alternativeNames = "alternative_names"
+        case metacriticUrl = "metacritic_url"
+        case parentsCount = "parents_count"
+        case additionsCount = "additions_count"
+        case gameSeriesCount = "game_series_count"
+        case reviewsCount = "reviews_count"
+        case saturatedColor = "saturated_color"
+        case dominantColor = "dominant_color"
+        case stores = "stores"
+        case developers = "developers"
+        case genres = "genres"
+        case tags = "tags"
+        case publishers = "publishers"
+        case descriptionRaw = "description_raw"
+    }
+}
+
+struct GameDevelopers: Codable {
+
+    let id: Int?
+    let name: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+    }
+
+}
+
+struct GameStores: Codable {
+
+    let id: Int?
+    let url: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case url = "url"
+    }
+}
+
+struct GamePublishers: Codable {
+
+    let id: Int?
+    let name: String?
+    let slug: String?
+    let gamesCount: Int?
+    let imageBackground: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+        case slug = "slug"
+        case gamesCount = "games_count"
+        case imageBackground = "image_background"
+    }
+}

@@ -13,5 +13,5 @@ enum RSError: String, Error {
     case invalidURL = "Invalid URL"
     case invalidData = "Invalid data"
     case invalidResponse = "Invalid response from the server, please try again"
-    case somethingWrong = "Something wrong server :("
+    case somethingWrong = "Something wrong, please try again!"
 }

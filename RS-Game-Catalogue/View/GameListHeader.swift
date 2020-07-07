@@ -11,28 +11,22 @@ import LBTATools
 
 class GameListHeader: UICollectionReusableView {
 
-//    let viralController = ViralController(scrollDirection: .horizontal)
-//    let viralLabel = UILabel(text: NSLocalizedString("Viral Video", comment: ""),
-//                             font: R.font.robotoMedium(size: 16),
-//                             textColor: UIColor.INewsColor.Black.blackThree)
-//    let videoLabel = UILabel(text: NSLocalizedString("Latest Video", comment: ""),
-//                             font: R.font.robotoMedium(size: 16),
-//                             textColor: UIColor.INewsColor.Black.blackThree)
-//
+    let headerController = MainHeaderViewController(scrollDirection: .horizontal)
+    private lazy var titleLabel: UILabel = {
+        return UILabel(text: "The Latest Released", font: .boldSystemFont(ofSize: 16), textColor: .blackTwo)
+    }()
+    private lazy var scndtitleLabel: UILabel = {
+        return UILabel(text: "The Most Popular", font: .boldSystemFont(ofSize: 16), textColor: .blackTwo)
+    }()
+
 //    var delegate: ViralHeaderDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemYellow
-//        stack(UIView().withHeight(15),
-//              hstack(UIView().withWidth(15),viralLabel),
-//              viralController.view,
-//              hstack(UIView().withWidth(15),videoLabel))
+        stack(headerController.view)
 //
 //        viralController.delegate = self
-//        viralController.collectionView.showsHorizontalScrollIndicator = false
-//        viralLabel.theme_textColor = "Global.barTextColor"
-//        videoLabel.theme_textColor = "Global.barTextColor"
+        headerController.collectionView.showsHorizontalScrollIndicator = false
     }
 
     required init?(coder: NSCoder) {
