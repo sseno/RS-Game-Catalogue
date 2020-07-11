@@ -18,7 +18,7 @@ extension UIViewController {
             if withBlocking {
                 if isShown {
                     containerIndicator = UIView(frame: .zero)
-                    containerIndicator.backgroundColor = .init(white: 0, alpha: 0.3)
+                    containerIndicator.backgroundColor = UIColor(named: "indicatorBlockerColor")
                     self.view.addSubview(containerIndicator)
                     containerIndicator.translatesAutoresizingMaskIntoConstraints = false
                     NSLayoutConstraint.activate([

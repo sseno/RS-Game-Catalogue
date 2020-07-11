@@ -40,7 +40,7 @@ class GameHeaderCell: LBTAListCell<ListDeveloperResults> {
         indicatorColor.layer.cornerRadius = 3
         indicatorColor.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         stack(UIView(),
-              indicatorColor.withHeight(3)).withMargins(.init(top: 0, left: 0, bottom: 6, right: 0))
+              indicatorColor.withHeight(3)).withMargins(.allSides(0))
         stack(titleLabel)
     }
 }

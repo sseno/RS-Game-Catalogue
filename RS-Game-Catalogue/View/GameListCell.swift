@@ -14,7 +14,7 @@ class GameListCell: LBTAListCell<GameResults> {
 
     private lazy var gameImg: UIImageView = {
         let imgView = UIImageView()
-        imgView.backgroundColor = UIColor(named: "textColorTwo")
+        imgView.backgroundColor = UIColor(named: "imageBackgroundColor")
         imgView.contentMode = .scaleAspectFill
         return imgView
     }()

@@ -8,25 +8,24 @@
 
 import UIKit
 
+protocol DetailTableCellDelegate: class {
+    func arrowRightTapped()
+}
+
 class DetailTableCell: UITableViewCell {
 
-    private let developerLabel = UILabel(font: .boldSystemFont(ofSize: 14), textColor: UIColor(named: "textColor")!, numberOfLines: 1)
-    private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 24), textColor: UIColor(named: "textColor")!, numberOfLines: 0)
+    private let developerLabel = UILabel(font: .boldSystemFont(ofSize: 13), textColor: UIColor(named: "textColor")!, numberOfLines: 1)
+    private let getButton = UIButton(title: "GET", titleColor: .white, font: .boldSystemFont(ofSize: 14), backgroundColor: .systemBlue)
+    private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 22), textColor: UIColor(named: "textColor")!, numberOfLines: 0)
     private let imgHeader = UIImageView(image: nil, contentMode: .scaleAspectFill)
     private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
-    private let imgArrowRight = UIImageView(image: UIImage(named: "chevron.right")?.withRenderingMode(.alwaysTemplate), contentMode: .scaleAspectFit)
+    private let arrowRightButton = UIButton(image: UIImage(named: "chevron.right")!, tintColor: UIColor(named: "textColor")!)
     private let descLabel = UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor")!, numberOfLines: 3)
     private let lineView = UIView(backgroundColor: UIColor(named: "lineColor")!)
     private let ratingsLabel = UILabel(text: "Ratings", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
     private let vStackView = UIStackView()
 
-//    private lazy var collectionView: UICollectionView = {
-//        let collView = UICollectionView()
-//        collView.delegate = self
-//        collView.dataSource = self
-//        collView.register(ClipCollectionCell.self, forCellWithReuseIdentifier: Constants.ReuseIdentifier.clipCollectionCell)
-//        return collView
-//    }()
+    weak var delegate: DetailTableCellDelegate?
 
     var data: GameDetailResponse?
 
@@ -40,18 +39,25 @@ class DetailTableCell: UITableViewCell {
     }
 
     private func setupViews() {
-        imgHeader.backgroundColor = UIColor(named: "textColorTwo")
-        imgArrowRight.tintColor = UIColor(named: "textColor")
+        imgHeader.backgroundColor = UIColor(named: "imageBackgroundColor")
         aboutLabel.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .horizontal)
 
+        getButton.addTarget(self, action: #selector(getButtonTapped(_:)), for: .touchUpInside)
+        getButton.layer.cornerRadius = 15
+        arrowRightButton.addTarget(self, action: #selector(arrowRightTapped), for: .touchUpInside)
         setupRatingView()
 
-        self.contentView.stack(contentView.stack(developerLabel,
-                                                 titleLabel,
-                                                 spacing: 5)
+        self.contentView.stack(contentView.hstack(contentView.stack(developerLabel,
+                                                                    titleLabel),
+                                                  UIView(),
+                                                  getButton.withWidth(60).withHeight(30),
+                                                  spacing: 3,
+                                                  alignment: .center)
                         .withMargins(.init(top: 0, left: 20, bottom: 0, right: 20)),
                                imgHeader.withHeight(250),
-                               contentView.stack(contentView.hstack(aboutLabel,UIView(),imgArrowRight),
+                               contentView.stack(contentView.hstack(aboutLabel,
+                                                                    UIView(),
+                                                                    arrowRightButton),
                                                  descLabel,
                                                  lineView.withHeight(1),
                                                  ratingsLabel,
@@ -69,6 +75,7 @@ class DetailTableCell: UITableViewCell {
 
     func setData(_ data: GameDetailResponse) {
         self.data = data
+        if data.stores?.count == 0 { getButton.isHidden = true }
         if let imageURL = data.backgroundImage {
             imgHeader.sd_setImage(with: URL(string: imageURL), placeholderImage: nil, completed: nil)
         }
@@ -79,7 +86,7 @@ class DetailTableCell: UITableViewCell {
                 developerLabel.text = developer.name
             }
         }
-        if let ratings = data.ratings {
+        if let ratings = data.ratings, ratings.count > 0 {
             for rating in ratings {
                 let hStackView = UIStackView()
                 hStackView.axis = .horizontal
@@ -104,5 +111,24 @@ class DetailTableCell: UITableViewCell {
             }
             vStackView.layoutIfNeeded()
         }
+        else {
+            ratingsLabel.isHidden = true
+        }
+    }
+
+    // MARK: - Actions
+    @objc func getButtonTapped(_ sender: UIButton) {
+        guard let storeCount = self.data?.stores?.count, storeCount > 0 else { return }
+
+        if let url = self.data?.stores?[0].url, url != "" {
+            if let urlStr = URL(string: url),
+                UIApplication.shared.canOpenURL(urlStr) {
+                UIApplication.shared.open(urlStr, options: [:], completionHandler: nil)
+            }
+        }
+    }
+
+    @objc func arrowRightTapped() {
+        delegate?.arrowRightTapped()
     }
 }

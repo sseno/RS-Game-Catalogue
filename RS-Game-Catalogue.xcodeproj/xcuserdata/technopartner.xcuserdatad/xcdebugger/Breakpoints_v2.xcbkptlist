@@ -14,25 +14,9 @@
             filePath = "RS-Game-Catalogue/Networking/ApiManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "getGames(by:id:ordering:completed:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CFEA05C0-4B3A-4507-9D63-3D84FCD94831"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RS-Game-Catalogue/ViewController/MainViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "reloadItemGames(notification:)"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "getGames(query:page:completed:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

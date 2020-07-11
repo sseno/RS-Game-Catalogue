@@ -14,15 +14,9 @@ class ApiManager {
 
     private init() { }
 
-    func getGames(by date: String, id: String, ordering: String = "", completed: @escaping (Result<GameResponse, RSError>) -> Void) {
+    func getGames(query: String, page: Int, completed: @escaping (Result<GameResponse, RSError>) -> Void) {
 
-        var endpoint = Constants.Api.BASE_URL
-
-        if ordering == "" {
-             endpoint += "api/games?dates=\(date)&platforms=\(id)"
-        } else {
-            endpoint += "api/games?dates=\(date)&platforms=\(id)&ordering=\(ordering)"
-        }
+        let endpoint = Constants.Api.BASE_URL + "api/games?page_size=15&search=\(query)&page=\(page)"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -96,9 +90,9 @@ class ApiManager {
         task.resume()
     }
 
-    func getGamesByDevelopers(id: Int, completed: @escaping (Result<GameResponse, RSError>) -> Void) {
+    func getGamesByDevelopers(id: Int, page: Int, completed: @escaping (Result<GameResponse, RSError>) -> Void) {
 
-        let endpoint = Constants.Api.BASE_URL + "api/games?page_size=15&platforms=3&ordering=-rating&developers=\(id)"
+        let endpoint = Constants.Api.BASE_URL + "api/games?page_size=15&platforms=3&ordering=-rating&developers=\(id)&page=\(page)"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -171,4 +165,5 @@ class ApiManager {
 
         task.resume()
     }
+
 }

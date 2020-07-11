@@ -30,18 +30,10 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        extendedLayoutIncludesOpaqueBars = true
         setupUI()
+        setupNavBar()
         getGameDetail()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func setupUI() {
@@ -55,7 +47,10 @@ class DetailViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
+    }
 
+    private func setupNavBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(shareButtonTapped(_:)), image: UIImage(named: "square.and.arrow.up"), width: 30)
     }
 
     func getGameDetail() {
@@ -79,6 +74,17 @@ class DetailViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+
+    // MARK: - Actions
+    @objc func shareButtonTapped(_ sender: UIBarButtonItem) {
+        if let websiteURL = self.data?.website, websiteURL != "" {
+            let items = [URL(string: websiteURL)!]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(ac, animated: true)
+        } else {
+            showAlertOnMainThread(message: "URL is not available.", title: "Uh-oh!")
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -98,10 +104,24 @@ extension DetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ReuseIdentifier.detailTableCell, for: indexPath) as! DetailTableCell
+        cell.delegate = self
         if let data = self.data {
             cell.setData(data)
         }
         return cell
+    }
+}
+
+// MARK: - DetailTableCellDelegate
+extension DetailViewController: DetailTableCellDelegate {
+
+    func arrowRightTapped() {
+        let vc = MoreDetailViewController()
+        if let data = self.data {
+            vc.title = data.name
+            vc.updateUI(with: data)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

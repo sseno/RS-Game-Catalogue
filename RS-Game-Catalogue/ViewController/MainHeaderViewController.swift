@@ -13,6 +13,13 @@ var DEVELOPER_ID = 0
 
 class MainHeaderViewController: LBTAListController<GameHeaderCell, ListDeveloperResults> {
 
+    private lazy var lineView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "lineColor")!
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -21,6 +28,13 @@ class MainHeaderViewController: LBTAListController<GameHeaderCell, ListDeveloper
 
     private func setupUI() {
         self.collectionView.backgroundColor = .systemBackground
+        self.view.addSubview(lineView)
+        NSLayoutConstraint.activate([
+            lineView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            lineView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            lineView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: 0.5),
+        ])
     }
 
     private func getDevelopers() {
@@ -30,6 +44,7 @@ class MainHeaderViewController: LBTAListController<GameHeaderCell, ListDeveloper
             case .success(let games):
                 self.updateUI(with: games)
             case .failure(let error):
+                self.showLoadingIndicator(false)
                 self.showAlertOnMainThread(message: error.rawValue)
             }
         }

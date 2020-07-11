@@ -23,10 +23,10 @@ class GameListHeader: UICollectionReusableView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        stack(headerController.view)
+        //stack(headerController.view)
 //
 //        viralController.delegate = self
-        headerController.collectionView.showsHorizontalScrollIndicator = false
+        //headerController.collectionView.showsHorizontalScrollIndicator = false
     }
 
     required init?(coder: NSCoder) {

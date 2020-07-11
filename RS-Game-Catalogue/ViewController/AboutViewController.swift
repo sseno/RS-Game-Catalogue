@@ -24,7 +24,7 @@ class AboutViewController: UIViewController {
     private let aboutTitleLabel: UILabel = UILabel(text: "About this app",
                                                font: .boldSystemFont(ofSize: 16),
                                                textColor: UIColor(named: "textColor")!)
-    private let descriptionLabel: UILabel = UILabel(text: "Aplikasi ini menyajikan daftar game melalui API yang diperoleh dari https://api.rawg.io/. Pada halaman utama merupakan daftar game berdasarkan developer. Terdapat fitur pencarian menggunakan query maupun tanggal.",
+    private let descriptionLabel: UILabel = UILabel(text: "Aplikasi ini menyajikan daftar game melalui API yang diperoleh dari https://api.rawg.io/. Pada halaman utama merupakan daftar game berdasarkan developer dan fungsi loadmore. Terdapat fitur pencarian menggunakan text. Tampilan aplikasi ini juga sudah disesuaikan untuk dark mode.",
                                                     font: .systemFont(ofSize: 16),
                                                     textColor: UIColor(named: "textColor")!,
                                                     numberOfLines: 0)
@@ -51,7 +51,7 @@ class AboutViewController: UIViewController {
                    descriptionLabel,
                    UIView(),
                    spacing: 8)
-            .withMargins(.init(top: 0, left: 23, bottom: 0, right: 23))
+            .withMargins(.init(top: 20, left: 23, bottom: 0, right: 23))
     }
 }
 

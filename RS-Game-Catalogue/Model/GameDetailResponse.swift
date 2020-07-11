@@ -48,6 +48,7 @@ struct GameDetailResponse: Codable {
     let reviewsCount: Int?
     let saturatedColor: String?
     let dominantColor: String?
+    let platforms: [GamePlatforms]?
     let stores: [GameStores]?
     let developers: [GameDevelopers]?
     let genres: [GameGenres]?
@@ -94,12 +95,44 @@ struct GameDetailResponse: Codable {
         case reviewsCount = "reviews_count"
         case saturatedColor = "saturated_color"
         case dominantColor = "dominant_color"
+        case platforms = "platforms"
         case stores = "stores"
         case developers = "developers"
         case genres = "genres"
         case tags = "tags"
         case publishers = "publishers"
         case descriptionRaw = "description_raw"
+    }
+}
+
+struct GamePlatforms: Codable {
+
+    let platformDetail: PlatformDetail?
+    let releasedAt: String?
+    let requirements: GameDetailRequirements?
+
+    private enum CodingKeys: String, CodingKey {
+        case platformDetail = "platform"
+        case releasedAt = "released_at"
+        case requirements = "requirements"
+    }
+}
+
+struct PlatformDetail: Codable {
+
+    let id: Int?
+    let name: String?
+    let slug: String?
+}
+
+struct GameDetailRequirements: Codable {
+
+    let minimum: String?
+    let recommended: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case minimum = "minimum"
+        case recommended = "recommended"
     }
 }
 
