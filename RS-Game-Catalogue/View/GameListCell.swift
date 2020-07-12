@@ -18,15 +18,11 @@ class GameListCell: LBTAListCell<GameResults> {
         imgView.contentMode = .scaleAspectFill
         return imgView
     }()
-    private lazy var nameLabel: UILabel = {
-        return UILabel(font: .boldSystemFont(ofSize: 24), textColor: UIColor(named: "textColor")!, numberOfLines: 2)
-    }()
-    private lazy var genreLabel: UILabel = {
-        return UILabel(font: .systemFont(ofSize: 18), textColor: UIColor(named: "textColorTwo")!, numberOfLines: 2)
-    }()
-    private lazy var containerView: UIView = {
-        return UIView(backgroundColor: UIColor(named: "backgroundColor")!)
-    }()
+    let containerView = UIView(backgroundColor: UIColor(named: "backgroundColor")!)
+    let nameLabel = UILabel(font: .boldSystemFont(ofSize: 24), textColor: UIColor(named: "textColor")!, numberOfLines: 2)
+    let genreLabel = UILabel(font: .systemFont(ofSize: 18), textColor: UIColor(named: "textColorTwo")!, numberOfLines: 2)
+    let releaseDateLabel = UILabel(text: "-", font: .systemFont(ofSize: 14), textColor: UIColor(named: "textColorTwo")!)
+    let ratingLabel = UILabel(text: "4.5", font: .systemFont(ofSize: 14), textColor: UIColor(named: "textColorTwo")!)
 
     override var item: GameResults! {
         didSet {
@@ -38,6 +34,8 @@ class GameListCell: LBTAListCell<GameResults> {
                 let arr = gendres.map{ $0.name ?? ""}
                 genreLabel.text = arr.joined(separator: ", ")
             }
+            releaseDateLabel.text = item.released
+            ratingLabel.text = "\(item.rating ?? 0.0) ★"
         }
     }
 
@@ -50,6 +48,10 @@ class GameListCell: LBTAListCell<GameResults> {
               containerView).withMargins(.allSides(0))
         containerView.stack(nameLabel,
                             genreLabel,
+                            containerView.hstack(releaseDateLabel,
+                                                 UIView(),
+                                                 ratingLabel,
+                                                 spacing: 5),
                             spacing: 5).withMargins(.allSides(12))
         self.makeCardLayout(shadowPath: UIBezierPath(roundedRect: bounds, cornerRadius: self.contentView.layer.cornerRadius))
     }

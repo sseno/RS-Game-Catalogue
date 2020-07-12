@@ -37,10 +37,10 @@ class GameHeaderCell: LBTAListCell<ListDeveloperResults> {
 
     override func setupViews() {
         super.setupViews()
-        indicatorColor.layer.cornerRadius = 3
+        indicatorColor.layer.cornerRadius = 4
         indicatorColor.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         stack(UIView(),
-              indicatorColor.withHeight(3)).withMargins(.allSides(0))
+              indicatorColor.withHeight(4)).withMargins(.allSides(0))
         stack(titleLabel)
     }
 }

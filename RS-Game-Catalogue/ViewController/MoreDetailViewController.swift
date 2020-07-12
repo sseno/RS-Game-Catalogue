@@ -2,7 +2,7 @@
 //  MoreDetailViewController.swift
 //  RS-Game-Catalogue
 //
-//  Created by Technopartner Indonesia on 09/07/20.
+//  Created by Rohmat Suseno on 09/07/20.
 //  Copyright © 2020 github.com/sseno. All rights reserved.
 //
 

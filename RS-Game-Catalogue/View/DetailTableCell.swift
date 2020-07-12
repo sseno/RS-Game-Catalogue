@@ -17,6 +17,7 @@ class DetailTableCell: UITableViewCell {
     private let developerLabel = UILabel(font: .boldSystemFont(ofSize: 13), textColor: UIColor(named: "textColor")!, numberOfLines: 1)
     private let getButton = UIButton(title: "GET", titleColor: .white, font: .boldSystemFont(ofSize: 14), backgroundColor: .systemBlue)
     private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 22), textColor: UIColor(named: "textColor")!, numberOfLines: 0)
+    private let releaseDateLabel = UILabel(font: .boldSystemFont(ofSize: 14), textColor: UIColor(named: "textColor")!)
     private let imgHeader = UIImageView(image: nil, contentMode: .scaleAspectFill)
     private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
     private let arrowRightButton = UIButton(image: UIImage(named: "chevron.right")!, tintColor: UIColor(named: "textColor")!)
@@ -48,7 +49,9 @@ class DetailTableCell: UITableViewCell {
         setupRatingView()
 
         self.contentView.stack(contentView.hstack(contentView.stack(developerLabel,
-                                                                    titleLabel),
+                                                                    titleLabel,
+                                                                    releaseDateLabel,
+                                                                    spacing: 5),
                                                   UIView(),
                                                   getButton.withWidth(60).withHeight(30),
                                                   spacing: 3,
@@ -81,6 +84,7 @@ class DetailTableCell: UITableViewCell {
         }
         titleLabel.text = data.name
         descLabel.attributedText = data.description?.htmlToAttributedString
+        releaseDateLabel.text = data.released
         if let developers = data.developers {
             for developer in developers {
                 developerLabel.text = developer.name

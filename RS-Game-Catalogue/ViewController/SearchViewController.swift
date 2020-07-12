@@ -2,7 +2,7 @@
 //  SearchViewController.swift
 //  RS-Game-Catalogue
 //
-//  Created by Technopartner Indonesia on 11/07/20.
+//  Created by Rohmat Suseno on 11/07/20.
 //  Copyright © 2020 github.com/sseno. All rights reserved.
 //
 
@@ -29,6 +29,7 @@ class SearchViewController: LBTAListController<GameListCell, GameResults> {
         self.collectionView.contentInset = .init(top: 20, left: 16, bottom: 25, right: 16)
         self.collectionView.keyboardDismissMode = .onDrag
 
+        searchBar.placeholder = "Game name"
         searchBar.sizeToFit()
         searchBar.delegate = self
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
