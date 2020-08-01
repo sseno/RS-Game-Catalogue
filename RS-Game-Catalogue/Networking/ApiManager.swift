@@ -16,7 +16,7 @@ class ApiManager {
 
     func getGames(query: String, page: Int, completed: @escaping (Result<GameResponse, RSError>) -> Void) {
 
-        let endpoint = Constants.Api.BASE_URL + "api/games?page_size=15&search=\(query)&page=\(page)"
+        let endpoint = Constants.Api.baseUrl + "api/games?page_size=15&search=\(query)&page=\(page)"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -44,7 +44,7 @@ class ApiManager {
                     let games = try decoder.decode(GameResponse.self, from: data)
                 completed(.success(games))
             } catch let error as NSError {
-                print(error)
+                PrintDebug.printDebugService(error, message: "Decoding error")
                 completed(.failure(.invalidData))
             }
         }
@@ -54,7 +54,7 @@ class ApiManager {
 
     func getDevelopers(completed: @escaping (Result<ListDeveloperResponse, RSError>) -> Void) {
 
-        let endpoint = Constants.Api.BASE_URL + "api/developers"
+        let endpoint = Constants.Api.baseUrl + "api/developers"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -82,7 +82,7 @@ class ApiManager {
                     let games = try decoder.decode(ListDeveloperResponse.self, from: data)
                 completed(.success(games))
             } catch let error as NSError {
-                print(error)
+                PrintDebug.printDebugService(error, message: "Decoding error")
                 completed(.failure(.invalidData))
             }
         }
@@ -92,7 +92,7 @@ class ApiManager {
 
     func getGamesByDevelopers(id: Int, page: Int, completed: @escaping (Result<GameResponse, RSError>) -> Void) {
 
-        let endpoint = Constants.Api.BASE_URL + "api/games?page_size=15&platforms=3&ordering=-rating&developers=\(id)&page=\(page)"
+        let endpoint = Constants.Api.baseUrl + "api/games?page_size=15&platforms=3&ordering=-rating&developers=\(id)&page=\(page)"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -120,7 +120,7 @@ class ApiManager {
                     let games = try decoder.decode(GameResponse.self, from: data)
                 completed(.success(games))
             } catch let error as NSError {
-                print(error)
+                PrintDebug.printDebugService(error, message: "Decoding error")
                 completed(.failure(.invalidData))
             }
         }
@@ -130,7 +130,7 @@ class ApiManager {
 
     func getGameDetail(by id: Int, completed: @escaping (Result<GameDetailResponse, RSError>) -> Void) {
 
-        let endpoint = Constants.Api.BASE_URL + "api/games/\(id)"
+        let endpoint = Constants.Api.baseUrl + "api/games/\(id)"
 
         guard let url = URL(string: endpoint) else {
             completed(.failure(.invalidURL))
@@ -158,7 +158,7 @@ class ApiManager {
                     let games = try decoder.decode(GameDetailResponse.self, from: data)
                 completed(.success(games))
             } catch let error as NSError {
-                print(error)
+                PrintDebug.printDebugService(error, message: "Decoding error")
                 completed(.failure(.invalidData))
             }
         }

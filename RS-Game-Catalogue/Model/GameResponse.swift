@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct GameResponse: Codable {
 
     let count: Int?
     let next: String?
     let previous: String?
-    let results: [GameResults]?
+    var results: [GameResults]?
     let userPlatforms: Bool?
 
     private enum CodingKeys: String, CodingKey {
@@ -23,6 +24,30 @@ struct GameResponse: Codable {
         case results = "results"
         case userPlatforms = "user_platforms"
     }
+}
+
+class GameRealmResult: Object {
+
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String?
+    @objc dynamic var backgroundImage: String?
+    @objc dynamic var genres: String?
+    @objc dynamic var released: String?
+    @objc dynamic var rating: Double = 0.0
+    @objc dynamic var isBookmarked: Bool = false
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+
+    static func get(realm: Realm = try! Realm(), isBookmarked: Bool = false) -> Results<GameRealmResult> {
+        let newsList: Results<GameRealmResult> = realm.objects(GameRealmResult.self)
+        if isBookmarked {
+            return newsList.filter("isBookmarked == true")
+        }
+        return newsList
+    }
+
 }
 
 struct GameResults: Codable {
@@ -48,6 +73,7 @@ struct GameResults: Codable {
     let saturatedColor: String?
     let dominantColor: String?
     let shortScreenshots: [GameShortScreenshots]?
+    var isBookmarked: Bool?
 
     private enum CodingKeys: String, CodingKey {
         case slug = "slug"

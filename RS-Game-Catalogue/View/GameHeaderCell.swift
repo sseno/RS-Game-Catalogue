@@ -12,7 +12,7 @@ import LBTATools
 class GameHeaderCell: LBTAListCell<ListDeveloperResults> {
 
     private lazy var titleLabel: UILabel = {
-        return UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor")!, textAlignment: .center, numberOfLines: 1)
+        return UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor") ?? UIColor.systemGray, textAlignment: .center, numberOfLines: 1)
     }()
     lazy var indicatorColor: UIView = {
         return UIView(backgroundColor: .clear)

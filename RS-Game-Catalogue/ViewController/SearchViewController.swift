@@ -9,7 +9,7 @@
 import UIKit
 import LBTATools
 
-class SearchViewController: LBTAListController<GameListCell, GameResults> {
+class SearchViewController: LBTAListController<GameListCell, GameViewModel> {
 
     let searchBar = UISearchBar()
     var searchKeyword = ""
@@ -27,7 +27,7 @@ class SearchViewController: LBTAListController<GameListCell, GameResults> {
         extendedLayoutIncludesOpaqueBars = true
         self.collectionView.backgroundColor = .systemBackground
         self.collectionView.contentInset = .init(top: 20, left: 16, bottom: 25, right: 16)
-        self.collectionView.keyboardDismissMode = .onDrag
+//        self.collectionView.keyboardDismissMode = .interactive
 
         searchBar.placeholder = "Game name"
         searchBar.sizeToFit()
@@ -66,13 +66,15 @@ class SearchViewController: LBTAListController<GameListCell, GameResults> {
                 items.removeAll()
             }
             for result in results {
-                self.items.append(result)
+                let data = GameViewModel(data: result)
+                self.items.append(data)
             }
             DispatchQueue.main.async {
                 if page == 1 {
                     self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
                 self.collectionView.reloadData()
+                self.searchBar.resignFirstResponder()
             }
         } else {
             DispatchQueue.main.async {
@@ -83,6 +85,7 @@ class SearchViewController: LBTAListController<GameListCell, GameResults> {
 
     // MARK: - Actions
     @objc func cancelTapped() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.notificationReloadFab), object: nil)
         self.navigationController?.popViewController(animated: false)
     }
 }
@@ -98,10 +101,10 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
                     page += 1
                     getGames()
                 } else {
-                    print("lagi loading")
+                    PrintDebug.printDebugGeneral(self, message: "lagi loading")
                 }
             } else {
-                print("no more data")
+                PrintDebug.printDebugGeneral(self, message: "no more data")
             }
         }
     }
@@ -117,7 +120,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailViewController()
-        guard let id = items[indexPath.row].id else { return }
+        guard let id = items[indexPath.row].gameResult.id else { return }
         vc.gameID = id
         self.navigationController?.pushViewController(vc, animated: true)
     }

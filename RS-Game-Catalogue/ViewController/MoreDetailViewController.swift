@@ -20,10 +20,10 @@ class MoreDetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
-    private let descLabel = UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor")!, numberOfLines: 0)
-    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor")!)
-    private let platformLabel = UILabel(text: "Available platforms", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
+    private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
+    private let descLabel = UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor") ?? UIColor.systemGray, numberOfLines: 0)
+    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor") ?? UIColor.systemGray)
+    private let platformLabel = UILabel(text: "Available platforms", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let platformSV = UIStackView()
 
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ class MoreDetailViewController: UIViewController {
         descLabel.attributedText = data.description?.htmlToAttributedString
         if let platforms = data.platforms {
             for platform in platforms {
-                let platformTitle = UILabel(font: .boldSystemFont(ofSize: 16), textColor: UIColor(named: "textColor")!)
+                let platformTitle = UILabel(font: .boldSystemFont(ofSize: 16), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
                 let minReqLabel = UILabel(numberOfLines: 0)
                 let recommenReqLabel = UILabel(numberOfLines: 0)
 

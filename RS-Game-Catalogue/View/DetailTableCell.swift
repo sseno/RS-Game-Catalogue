@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol DetailTableCellDelegate: class {
     func arrowRightTapped()
@@ -14,16 +15,16 @@ protocol DetailTableCellDelegate: class {
 
 class DetailTableCell: UITableViewCell {
 
-    private let developerLabel = UILabel(font: .boldSystemFont(ofSize: 13), textColor: UIColor(named: "textColor")!, numberOfLines: 1)
+    private let developerLabel = UILabel(font: .boldSystemFont(ofSize: 13), textColor: UIColor(named: "textColor") ?? UIColor.systemGray, numberOfLines: 1)
     private let getButton = UIButton(title: "GET", titleColor: .white, font: .boldSystemFont(ofSize: 14), backgroundColor: .systemBlue)
-    private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 22), textColor: UIColor(named: "textColor")!, numberOfLines: 0)
-    private let releaseDateLabel = UILabel(font: .boldSystemFont(ofSize: 14), textColor: UIColor(named: "textColor")!)
+    private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 22), textColor: UIColor(named: "textColor") ?? UIColor.systemGray, numberOfLines: 0)
+    private let releaseDateLabel = UILabel(font: .boldSystemFont(ofSize: 14), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let imgHeader = UIImageView(image: nil, contentMode: .scaleAspectFill)
-    private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
-    private let arrowRightButton = UIButton(image: UIImage(named: "chevron.right")!, tintColor: UIColor(named: "textColor")!)
-    private let descLabel = UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor")!, numberOfLines: 3)
-    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor")!)
-    private let ratingsLabel = UILabel(text: "Ratings", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor")!)
+    private let aboutLabel = UILabel(text: "About this game", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
+    private let arrowRightButton = UIButton(image: UIImage(named: "chevron.right") ?? UIImage(), tintColor: UIColor(named: "textColor") ?? UIColor.systemGray)
+    private let descLabel = UILabel(font: .systemFont(ofSize: 16), textColor: UIColor(named: "textColor") ?? UIColor.systemGray, numberOfLines: 3)
+    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor") ?? UIColor.systemGray)
+    private let ratingsLabel = UILabel(text: "Ratings", font: .boldSystemFont(ofSize: 18), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let vStackView = UIStackView()
 
     weak var delegate: DetailTableCellDelegate?
@@ -79,6 +80,7 @@ class DetailTableCell: UITableViewCell {
     func setData(_ data: GameDetailResponse) {
         self.data = data
         if data.stores?.count == 0 { getButton.isHidden = true }
+        imgHeader.sd_imageIndicator = SDWebImageActivityIndicator.gray
         if let imageURL = data.backgroundImage {
             imgHeader.sd_setImage(with: URL(string: imageURL), placeholderImage: nil, completed: nil)
         }
@@ -97,13 +99,13 @@ class DetailTableCell: UITableViewCell {
                 hStackView.spacing = 8
                 hStackView.alignment = .center
 
-                let ratingName = UILabel(font: .systemFont(ofSize: 14), textColor: UIColor(named: "textColor")!)
+                let ratingName = UILabel(font: .systemFont(ofSize: 14), textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
                 let progressView = CustomProgressView()
                 progressView.transform = CGAffineTransform(scaleX: 1, y: 3)
                 
                 ratingName.text = rating.title?.capitalized
                 DispatchQueue.main.async {
-                    UIView.animate(withDuration: 4.0) {
+                    UIView.animate(withDuration: 1.0) {
                         progressView.setProgress(Float(rating.percent ?? 0.0) / 100, animated: true)
                     }
                 }

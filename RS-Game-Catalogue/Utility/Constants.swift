@@ -11,11 +11,12 @@ import Foundation
 struct Constants {
     
     struct Api {
-        static let BASE_URL = "https://api.rawg.io/"
+        static let baseUrl = "https://api.rawg.io/"
     }
 
     struct NotificationName {
-        static let NotificationReloadItemGames = "notificationReloadItemGames"
+        static let notificationReloadItemGames = "notificationReloadItemGames"
+        static let notificationReloadFab = "notificationReloadFab"
     }
 
     struct ReuseIdentifier {

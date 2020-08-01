@@ -9,7 +9,7 @@
 import Foundation
 import LBTATools
 
-class MainViewController: LBTAListController<GameListCell, GameResults> {
+class MainViewController: LBTAListController<GameListCell, GameViewModel> {
 
     let headerController = MainHeaderViewController(scrollDirection: .horizontal)
     
@@ -19,17 +19,36 @@ class MainViewController: LBTAListController<GameListCell, GameResults> {
     private var devID = 0
     private var page = 1
 
+    lazy var floatingActionButton: UIButton = {
+        let fab = UIButton()
+        fab.isHidden = true
+        fab.backgroundColor = .systemBlue
+        fab.setImage(UIImage(named: "bookmark.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        fab.tintColor = .white
+        fab.translatesAutoresizingMaskIntoConstraints = false
+        return fab
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        reloadFab()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadItemGames), name: NSNotification.Name(Constants.NotificationName.NotificationReloadItemGames), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadItemGames), name: NSNotification.Name(Constants.NotificationName.notificationReloadItemGames), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFab), name: NSNotification.Name(Constants.NotificationName.notificationReloadFab), object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     private func setupUI() {
         showLoadingIndicator(true)
         self.collectionView.backgroundColor = .systemBackground
-        self.collectionView.contentInset = .init(top: 75, left: 16, bottom: 25, right: 16)
+        self.collectionView.contentInset = .init(top: 75, left: 16, bottom: 100, right: 16)
         self.collectionView.scrollIndicatorInsets = .init(top: 55, left: 0, bottom: 25, right: 0)
         setupNavBar()
 
@@ -42,6 +61,17 @@ class MainViewController: LBTAListController<GameListCell, GameResults> {
             headerController.view.heightAnchor.constraint(equalToConstant: 55),
         ])
         headerController.collectionView.showsHorizontalScrollIndicator = false
+
+        // Floating button
+        self.view.addSubview(floatingActionButton)
+        NSLayoutConstraint.activate([
+            floatingActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
+            floatingActionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -22),
+            floatingActionButton.heightAnchor.constraint(equalToConstant: 50),
+            floatingActionButton.widthAnchor.constraint(equalToConstant: 50),
+        ])
+        floatingActionButton.makeCardLayout(cornerRadius: 25, shadowRadius: 4.0, shadowOpacity: 3.0)
+        floatingActionButton.addTarget(self, action: #selector(fabTapped), for: .touchUpInside)
     }
 
     private func setupNavBar() {
@@ -57,6 +87,11 @@ class MainViewController: LBTAListController<GameListCell, GameResults> {
         devID = developerID
         page = 1
         getGamesByDeveloper(id: developerID, page: page)
+    }
+
+    @objc func reloadFab() {
+        let listOfGames = GameRealmResult.get(isBookmarked: true)
+        floatingActionButton.isHidden = listOfGames.count > 0 ? false : true
     }
 
     private func getGamesByDeveloper(id developersID: Int = 0, page: Int) {
@@ -84,7 +119,8 @@ class MainViewController: LBTAListController<GameListCell, GameResults> {
                 items.removeAll()
             }
             for result in results {
-                self.items.append(result)
+                let data = GameViewModel(data: result)
+                self.items.append(data)
              }
             DispatchQueue.main.async {
                 if page == 1 {
@@ -108,6 +144,10 @@ class MainViewController: LBTAListController<GameListCell, GameResults> {
         self.navigationController?.pushViewController(AboutViewController(), animated: true)
     }
 
+    @objc func fabTapped() {
+        self.navigationController?.pushViewController(BookmarkViewController(), animated: true)
+    }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -121,10 +161,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
                     page += 1
                     getGamesByDeveloper(id: devID, page: page)
                 } else {
-                    print("lagi loading")
+                    PrintDebug.printDebugGeneral(self, message: "lagi loading")
                 }
             } else {
-                print("no more data")
+                PrintDebug.printDebugGeneral(self, message: "no more data")
             }
         }
     }
@@ -140,7 +180,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailViewController()
-        guard let id = items[indexPath.row].id else { return }
+        guard let id = items[indexPath.row].gameResult.id else { return }
         vc.gameID = id
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -155,8 +195,8 @@ struct ViewController_Previews: PreviewProvider {
            ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
               .environment(\.colorScheme, .light)
 
-           ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
-              .environment(\.colorScheme, .dark)
+//           ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
+//              .environment(\.colorScheme, .dark)
         }
     }
 

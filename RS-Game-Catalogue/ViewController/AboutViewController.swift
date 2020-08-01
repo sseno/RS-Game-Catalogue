@@ -14,21 +14,21 @@ class AboutViewController: UIViewController {
     private let imgProfile = UIImageView(image: UIImage(named: "profile_rohmats"), contentMode: .scaleAspectFill)
     private let nameLabel: UILabel = UILabel(text: "Rohmat Suseno",
                                              font: .boldSystemFont(ofSize: 16),
-                                             textColor: UIColor(named: "textColor")!)
+                                             textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let addressLabel: UILabel = UILabel(text: "Yogyakarta",
                                                 font: .systemFont(ofSize: 14),
-                                                textColor: UIColor(named: "textColor")!)
+                                                textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let emailLabel: UILabel = UILabel(text: "rohmatsuseno@gmail.com",
                                               font: .systemFont(ofSize: 14),
-                                              textColor: UIColor(named: "textColor")!)
+                                              textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let aboutTitleLabel: UILabel = UILabel(text: "About this app",
                                                font: .boldSystemFont(ofSize: 16),
-                                               textColor: UIColor(named: "textColor")!)
-    private let descriptionLabel: UILabel = UILabel(text: "Aplikasi ini menyajikan daftar game melalui API yang diperoleh dari https://api.rawg.io/. Pada halaman utama merupakan daftar game berdasarkan developer dan fungsi loadmore. Terdapat fitur pencarian menggunakan text. Tampilan aplikasi ini juga sudah disesuaikan untuk dark mode.",
+                                               textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
+    private let descriptionLabel: UILabel = UILabel(text: "Aplikasi ini menyajikan daftar game melalui API yang diperoleh dari https://api.rawg.io/. Pada halaman utama merupakan daftar game berdasarkan developer dan fungsi loadmore. Terdapat fitur pencarian serta tampilan aplikasi yang sudah disesuaikan untuk dark mode. Penambahan fitur bookmark yang dapat Anda gunakan untuk menyimpan game pilihan Anda. 😉",
                                                     font: .systemFont(ofSize: 16),
-                                                    textColor: UIColor(named: "textColor")!,
+                                                    textColor: UIColor(named: "textColor") ?? UIColor.systemGray,
                                                     numberOfLines: 0)
-    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor")!)
+    private let lineView = UIView(backgroundColor: UIColor(named: "lineColor") ?? UIColor.systemGray)
 
     override func viewDidLoad() {
         super.viewDidLoad()

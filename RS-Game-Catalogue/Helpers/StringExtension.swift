@@ -24,7 +24,7 @@ extension String {
             attrStr.setFontFace(font: .systemFont(ofSize: 16), color: UIColor(named: "textColor"))
             return attrStr
         } catch let error as NSError {
-            print(error.localizedDescription)
+            PrintDebug.printDebugGeneral(error.localizedDescription, message: "String extension")
             return  nil
         }
     }
