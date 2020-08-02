@@ -18,7 +18,7 @@ class BookmarkViewController: LBTAListController<GameBookmarkedCell, GameRealmRe
     }
 
     private func setupUI() {
-        self.title = "Bookmarks"
+        self.title = "Favorites"
         self.collectionView.backgroundColor = .systemBackground
     }
 

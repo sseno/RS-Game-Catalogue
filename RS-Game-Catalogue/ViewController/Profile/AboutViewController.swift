@@ -15,11 +15,9 @@ class AboutViewController: UIViewController {
     private let nameLabel: UILabel = UILabel(text: "Rohmat Suseno",
                                              font: .boldSystemFont(ofSize: 16),
                                              textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
-    private let addressLabel: UILabel = UILabel(text: "Yogyakarta",
-                                                font: .systemFont(ofSize: 14),
+    private let addressLabel: UILabel = UILabel(font: .systemFont(ofSize: 14),
                                                 textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
-    private let emailLabel: UILabel = UILabel(text: "rohmatsuseno@gmail.com",
-                                              font: .systemFont(ofSize: 14),
+    private let emailLabel: UILabel = UILabel(font: .systemFont(ofSize: 14),
                                               textColor: UIColor(named: "textColor") ?? UIColor.systemGray)
     private let aboutTitleLabel: UILabel = UILabel(text: "About this app",
                                                font: .boldSystemFont(ofSize: 16),
@@ -29,10 +27,16 @@ class AboutViewController: UIViewController {
                                                     textColor: UIColor(named: "textColor") ?? UIColor.systemGray,
                                                     numberOfLines: 0)
     private let lineView = UIView(backgroundColor: UIColor(named: "lineColor") ?? UIColor.systemGray)
+    let editButton = UIButton(title: "Edit", titleColor: .systemBlue)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setData()
     }
 
     private func setupUI() {
@@ -41,7 +45,7 @@ class AboutViewController: UIViewController {
         view.stack(view.stack(imgProfile.withWidth(130).withHeight(130),
                               alignment: .center)
             .withMargins(.init(top: 0, left: 0, bottom: 20, right: 0)),
-                   nameLabel,
+                   view.hstack(nameLabel,UIView(),editButton),
                    addressLabel,
                    emailLabel,
                    UIView().withHeight(12),
@@ -52,6 +56,21 @@ class AboutViewController: UIViewController {
                    UIView(),
                    spacing: 8)
             .withMargins(.init(top: 20, left: 23, bottom: 0, right: 23))
+
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    }
+
+    private func setData() {
+        addressLabel.text = UserDefaultManager.instance.userCity
+        emailLabel.text = UserDefaultManager.instance.userEmail
+    }
+
+    // MARK: - Actions
+    @objc func editButtonTapped() {
+        let vc = EditViewController()
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(navController, animated: true, completion: nil)
     }
 }
 
@@ -64,8 +83,8 @@ struct AboutViewController_Previews: PreviewProvider {
            AboutContentView().previewDevice(.init(stringLiteral: "iPhone 6s"))
               .environment(\.colorScheme, .light)
 
-           AboutContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
-              .environment(\.colorScheme, .dark)
+//           AboutContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
+//              .environment(\.colorScheme, .dark)
         }
     }
 

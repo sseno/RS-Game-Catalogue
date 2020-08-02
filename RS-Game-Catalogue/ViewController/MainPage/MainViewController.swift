@@ -29,6 +29,10 @@ class MainViewController: LBTAListController<GameListCell, GameViewModel> {
         return fab
     }()
 
+    var bottomFabConstraint: NSLayoutConstraint!
+
+    var isFirstLaunch = false // prevent weird animated Fab on first launch
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -62,10 +66,12 @@ class MainViewController: LBTAListController<GameListCell, GameViewModel> {
         ])
         headerController.collectionView.showsHorizontalScrollIndicator = false
 
-        // Floating button
+        // Floating action button
         self.view.addSubview(floatingActionButton)
+        bottomFabConstraint = NSLayoutConstraint(item: floatingActionButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1.0, constant: -22)
         NSLayoutConstraint.activate([
-            floatingActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
+            //floatingActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
+            bottomFabConstraint,
             floatingActionButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -22),
             floatingActionButton.heightAnchor.constraint(equalToConstant: 50),
             floatingActionButton.widthAnchor.constraint(equalToConstant: 50),
@@ -91,7 +97,36 @@ class MainViewController: LBTAListController<GameListCell, GameViewModel> {
 
     @objc func reloadFab() {
         let listOfGames = GameRealmResult.get(isBookmarked: true)
-        floatingActionButton.isHidden = listOfGames.count > 0 ? false : true
+        //floatingActionButton.isHidden = listOfGames.count > 0 ? false : true
+        UIView.animate(withDuration: 0.5) {
+            if listOfGames.count > 0 {
+                if !self.isFirstLaunch {
+                    self.floatingActionButton.isHidden = false
+                } else {
+                    self.showFab()
+                }
+            } else {
+                self.hideFab()
+            }
+        }
+        isFirstLaunch = true
+    }
+
+    private func showFab() {
+        UIView.animate(withDuration: 0.5) {
+            self.floatingActionButton.alpha = 1
+            self.bottomFabConstraint.constant = -22
+            self.floatingActionButton.isHidden = false
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func hideFab() {
+        UIView.animate(withDuration: 1) {
+            self.floatingActionButton.alpha = 0
+            self.bottomFabConstraint.constant = 70
+            self.view.layoutIfNeeded()
+        }
     }
 
     private func getGamesByDeveloper(id developersID: Int = 0, page: Int) {
