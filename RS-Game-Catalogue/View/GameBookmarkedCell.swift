@@ -90,18 +90,4 @@ class GameBookmarkedCell: LBTAListCell<GameRealmResult> {
         }
     }
 
-//    private func removeBookmark(realm: Realm = try! Realm(), id: Int) {
-//        let gameID = realm.objects(GameRealmResults.self).filter("id = \(id)")
-//        do {
-//            try realm.write {
-//                realm.delete(gameID)
-//
-//                let parent = parentController as? BookmarkViewController
-//                parent?.reloadItems()
-//            }
-//        } catch let error as NSError {
-//            PrintDebug.printDebugGeneral(self, message: "error deleting data \(error.localizedDescription)")
-//        }
-//    }
-
 }
