@@ -14,11 +14,6 @@ struct Constants {
         static let baseUrl = "https://api.rawg.io/"
     }
 
-    struct NotificationName {
-        static let notificationReloadItemGames = "notificationReloadItemGames"
-        static let notificationReloadFab = "notificationReloadFab"
-    }
-
     struct ReuseIdentifier {
         static let detailTableCell = "detailTableCell"
     }

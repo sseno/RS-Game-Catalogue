@@ -38,8 +38,8 @@ class MainViewController: LBTAListController<GameListCell, GameViewModel> {
         setupUI()
         reloadFab()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadItemGames), name: NSNotification.Name(Constants.NotificationName.notificationReloadItemGames), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadFab), name: NSNotification.Name(Constants.NotificationName.notificationReloadFab), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadItemGames), name: .notificationReloadItemGames, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFab), name: .notificationReloadFab, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -227,11 +227,11 @@ import SwiftUI
 struct ViewController_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-           ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
-              .environment(\.colorScheme, .light)
-
 //           ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
-//              .environment(\.colorScheme, .dark)
+//              .environment(\.colorScheme, .light)
+
+           ContentView().previewDevice(.init(stringLiteral: "iPhone 11 Pro"))
+              .environment(\.colorScheme, .dark)
         }
     }
 

@@ -61,7 +61,7 @@ class MainHeaderViewController: LBTAListController<GameHeaderCell, ListDeveloper
                 items.append(result)
              }
 
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.notificationReloadItemGames), object: nil, userInfo: ["developerID" : DEVELOPER_ID])
+            NotificationCenter.default.post(name: .notificationReloadItemGames, object: nil, userInfo: ["developerID" : DEVELOPER_ID])
 
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -110,7 +110,7 @@ extension MainHeaderViewController: UICollectionViewDelegateFlowLayout {
             collectionView.reloadData()
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
 
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.notificationReloadItemGames), object: nil, userInfo: ["developerID" : DEVELOPER_ID])
+            NotificationCenter.default.post(name: .notificationReloadItemGames, object: nil, userInfo: ["developerID" : DEVELOPER_ID])
         }
     }
 

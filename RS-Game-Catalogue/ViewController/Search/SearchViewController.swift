@@ -85,7 +85,7 @@ class SearchViewController: LBTAListController<GameListCell, GameViewModel> {
 
     // MARK: - Actions
     @objc func cancelTapped() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.notificationReloadFab), object: nil)
+        NotificationCenter.default.post(name: .notificationReloadFab, object: nil)
         self.navigationController?.popViewController(animated: false)
     }
 }

@@ -31,7 +31,7 @@ class BookmarkViewController: LBTAListController<GameBookmarkedCell, GameRealmRe
                 self.collectionView.reloadData()
             }
         } else {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.NotificationName.notificationReloadFab), object: nil)
+            NotificationCenter.default.post(name: .notificationReloadFab, object: nil)
             self.navigationController?.popViewController(animated: false)
         }
     }

@@ -40,6 +40,7 @@ class GameBookmarkedCell: LBTAListCell<GameRealmResult> {
 
     override func setupViews() {
         super.setupViews()
+        backgroundColor = .clear
         setupGameImage()
         setupBookmarkButton()
 

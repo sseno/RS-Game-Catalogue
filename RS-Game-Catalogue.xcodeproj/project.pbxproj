@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,7 +39,9 @@
 		436DFC3524ACFD4B002F339C /* RSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DFC3424ACFD4B002F339C /* RSError.swift */; };
 		436DFC3A24ACFDD9002F339C /* GameListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DFC3924ACFDD9002F339C /* GameListCell.swift */; };
 		438EF7B224B7449600B74FA2 /* MoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438EF7B124B7449600B74FA2 /* MoreDetailViewController.swift */; };
+		43A5190E24DF283C009F3179 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A5190D24DF283C009F3179 /* AlertService.swift */; };
 		43B695E524B9839C006238E5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B695E424B9839C006238E5 /* SearchViewController.swift */; };
+		43FE58EF24F0D62B00BAFB10 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FE58EE24F0D62B00BAFB10 /* NotificationNameExtension.swift */; };
 		7D4C3422B5B4320F93E3139F /* Pods_RS_Game_Catalogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E848B50F5CA351F6594F3DC /* Pods_RS_Game_Catalogue.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +80,9 @@
 		436DFC3424ACFD4B002F339C /* RSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSError.swift; sourceTree = "<group>"; };
 		436DFC3924ACFDD9002F339C /* GameListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListCell.swift; sourceTree = "<group>"; };
 		438EF7B124B7449600B74FA2 /* MoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailViewController.swift; sourceTree = "<group>"; };
+		43A5190D24DF283C009F3179 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		43B695E424B9839C006238E5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		43FE58EE24F0D62B00BAFB10 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 		7EED98757CF5F9817F1B8195 /* Pods-RS-Game-Catalogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RS-Game-Catalogue.release.xcconfig"; path = "Target Support Files/Pods-RS-Game-Catalogue/Pods-RS-Game-Catalogue.release.xcconfig"; sourceTree = "<group>"; };
 		8E848B50F5CA351F6594F3DC /* Pods_RS_Game_Catalogue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RS_Game_Catalogue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BA8C16838E43FD84E275E9 /* Pods-RS-Game-Catalogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RS-Game-Catalogue.debug.xcconfig"; path = "Target Support Files/Pods-RS-Game-Catalogue/Pods-RS-Game-Catalogue.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +106,6 @@
 				A5BA8C16838E43FD84E275E9 /* Pods-RS-Game-Catalogue.debug.xcconfig */,
 				7EED98757CF5F9817F1B8195 /* Pods-RS-Game-Catalogue.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -124,6 +127,8 @@
 				4342B59724B4C9560017B417 /* StringExtension.swift */,
 				4342B59C24B4D0FB0017B417 /* UIBarButtonItem+Button.swift */,
 				43501E2424D597C900E0ACD9 /* PrintDebug.swift */,
+				43A5190D24DF283C009F3179 /* AlertService.swift */,
+				43FE58EE24F0D62B00BAFB10 /* NotificationNameExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				43501E2724D5AC9600E0ACD9 /* BookmarkViewController.swift in Sources */,
 				438EF7B224B7449600B74FA2 /* MoreDetailViewController.swift in Sources */,
 				436DFC3324ACFD35002F339C /* ApiManager.swift in Sources */,
+				43A5190E24DF283C009F3179 /* AlertService.swift in Sources */,
 				43501E2524D597C900E0ACD9 /* PrintDebug.swift in Sources */,
 				4347EBDC24AE4A22007EB88D /* Constants.swift in Sources */,
 				430504F024B20E8300377096 /* GameDetailResponse.swift in Sources */,
@@ -430,6 +436,7 @@
 				430D17A424AD09410068B85C /* GameResponse.swift in Sources */,
 				4347EBD524AE1B7F007EB88D /* UIColorExtension.swift in Sources */,
 				43B695E524B9839C006238E5 /* SearchViewController.swift in Sources */,
+				43FE58EF24F0D62B00BAFB10 /* NotificationNameExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +578,7 @@
 				DEVELOPMENT_TEAM = CG2WD4B4G7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "RS-Game-Catalogue/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -593,6 +601,7 @@
 				DEVELOPMENT_TEAM = CG2WD4B4G7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "RS-Game-Catalogue/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
